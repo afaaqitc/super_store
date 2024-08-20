@@ -150,9 +150,16 @@ items_classes_top<-
 category_orders %>% select(sub_categories,class) %>% 
 left_join(dd,by="sub_categories") %>% 
 group_by(class,categories.x,sub_categories,product_name) %>% summarize(quantities=sum(qty),
-sales=sum(sales)) %>%  filter(class %in% c("A","B")) 
+sales=sum(sales),.groups = "drop") %>%  filter(class %in% c("A","B")) 
 
+items_classes_top_dt<-
+items_classes_top %>%mutate(product_name=toupper(product_name)) %>%filter(class=="A") %>% select(categories.x,sub_categories,product_name,quantities,sales) %>%   
+datatable(class="hover row-border",extensions = list(Buttons=TRUE,RowGroup=TRUE),
+options = list(pageLength=15,dom="Bfrtip",buttons=c("csv","excel","pdf"),rowGroup=list(dataSrc=c(1,2)),
+columnDefs=list(list(className="dt-center",targets=c(1,2,4,5)),list(visible=FALSE,targets=c(1,2))))) %>% 
+formatCurrency(columns = 5,digits = 2)
 
+  
 #------------------------------------------------------------------------------------------------------
 
 date_map_sales<-
@@ -398,6 +405,14 @@ category_orders_dt
 ggplotly( category_orders_chart,width=600)
 ```
 
+# Top Items
+### Top Items
+```{r}
+items_classes_top_dt
+```
+
+
+
 # Sales Dates
 ## row{.tabset}
 ### Year_month
@@ -485,4 +500,7 @@ Month_Forecast_dt
 ggplotly( Month_Forecast_chart,width=1000)
 
 ```
+
+
+
 
