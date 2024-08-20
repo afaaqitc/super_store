@@ -96,12 +96,28 @@ formatCurrency(columns = c(3:6),digits = 2)
 
 
 #-----------------------------------------------------------------------------------------
+
 state_sales<-
-dd %>% group_by(states,city) %>% 
+dd %>% group_by(states) %>% 
 summarize(orders=n(),quantities=sum(qty),sales=sum(sales),profits=sum(profits)) %>% 
-arrange(desc(sales))
+arrange(desc(sales)) %>% mutate(class=ifelse(sales>100000,"A",ifelse( sales>50000,"B","D")))%>% 
+select(class,states,orders,quantities,sales,profits) %>% rename_with(.cols =everything() ,.fn = toupper)
+
+state_sales_dt<-
+state_sales %>% datatable(class="hover row-border",extensions = list(Buttons=TRUE,RowGroup=TRUE),
+options = list(pageLength=15,dom="Bfrtip",buttons=c("csv","excel","pdf"),rowGroup=list(dataSrc=c(1)),
+columnDefs=list(list(className="dt-center",targets=c(1:6)),list(visible=FALSE,targets=c(1))))) %>% 
+formatCurrency(columns =c(5,6),digits = 2)
+
+state_sales_top_chart<-
+state_sales %>% filter(CLASS=="A")%>% 
+ggplot(aes(x=reorder(STATES,SALES),y=SALES,fill=STATES))+geom_bar(stat = "identity")+labs(x="",y="")+theme_bw()+
+geom_text(aes(label =comma(round(SALES))),size=3,color="white",position = position_stack(vjust = 0.6))+
+  scale_fill_brewer(palette = "Set1")+scale_y_continuous(labels = comma)+
+theme(axis.text.x = element_text(face = "bold",colour = "black",size = 10),axis.text.y = element_text(face = "bold",colour = "black",size = 10))
 
 
+#-----------------------------------------------------------------------------------------
 
 customers_sales<-
 dd %>% group_by(customer_name) %>% 
@@ -126,7 +142,7 @@ ggplot(aes(x=categories,y=sales,fill=years))+geom_bar(stat = "identity",position
 labs(x="",y="")+theme_bw()+scale_fill_brewer(palette = "Dark2")+
 theme(axis.text.x = element_text(face = "bold",size=9,color="black"),
       axis.text.y = element_text(face = "bold",size=9,color="black"))+
-scale_y_continuous(labels = comma,)
+scale_y_continuous(labels = comma)
 
  
 
@@ -153,7 +169,7 @@ group_by(class,categories.x,sub_categories,product_name) %>% summarize(quantitie
 sales=sum(sales),.groups = "drop") %>%  filter(class %in% c("A","B")) 
 
 items_classes_top_dt<-
-items_classes_top %>%mutate(product_name=toupper(product_name)) %>%filter(class=="A") %>% select(categories.x,sub_categories,product_name,quantities,sales) %>%   
+items_classes_top %>%mutate(product_name=toupper(product_name)) %>%filter(class=="A") %>% select(categories.x,sub_categories,product_name,quantities,sales) %>% rename_with(.cols = c(1:5),.fn = toupper)%>%   
 datatable(class="hover row-border",extensions = list(Buttons=TRUE,RowGroup=TRUE),
 options = list(pageLength=15,dom="Bfrtip",buttons=c("csv","excel","pdf"),rowGroup=list(dataSrc=c(1,2)),
 columnDefs=list(list(className="dt-center",targets=c(1,2,4,5)),list(visible=FALSE,targets=c(1,2))))) %>% 
@@ -452,6 +468,20 @@ ship_modes_dt
 ```{r}
 ship_modes_chart
 ```
+
+# States
+## row{data-width=500,.tabset}
+### States
+```{r}
+state_sales_dt
+```
+  
+### Top States
+```{r}
+ggplotly( state_sales_top_chart,width=700)
+```
+
+
 
 
 # Forecasting_Models
