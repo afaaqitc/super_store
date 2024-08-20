@@ -247,16 +247,17 @@ mutate(Hi=(Hi.95+Hi.80)/2,Low=(Lo.95+Lo.80)/2) %>%
 select(date,Point.Forecast,Hi,Low)
 
 weekly_real_forecast_chart<-
-
 weekly_real_forecast %>%select(date,Low,Hi,Point.Forecast) %>% 
 pivot_longer(!date,names_to = "cat",values_to = "values") %>%
 mutate(date=as.POSIXct(date))%>% 
-ggplot(aes(x=date,y=values,color=cat,group=cat))+geom_line(size=0.8)+
+ggplot(aes(x=date,y=values,color=cat,group=cat))+geom_line(size=0.8)+geom_area(aes(fill=cat))+
 theme(axis.text.x = element_text(face = "bold",colour = "black",angle = 90,size = 9),
 axis.text.y = element_text(face = "bold",colour = "black",angle = 90,size = 9))+
 scale_fill_brewer(palette = "Set1")+
 scale_x_datetime(date_breaks ="2 week" ,date_labels = "%b%Y")+theme_classic()+
-labs(x="",y="")
+labs(x="",y="")+
+scale_y_continuous(breaks = c(5000,10000,15000,20000,25000,30000,35000,40000))
+
   
 weekly_real_forecast_dt<-
 weekly_real_forecast %>% 
@@ -266,21 +267,6 @@ extensions = list(Buttons=TRUE),
 options = list(dom="Bfrtip",buttons=c("csv","excel","pdf"),
 columnDefs=list(list(className="dt-center",targets=c(1:4))))) %>% 
 formatCurrency(columns = c(2:4),digits = 2) 
-
-
-weekly_real_forecast_chart<-
-weekly_real_forecast %>% 
-mutate(date=paste0("W",week=week(date)," ",format(date,"%b")))%>% 
-pivot_longer(!date,names_to ="cat" ,values_to = "values") %>% 
-filter(cat !="Low") %>% rename(Forecast=cat) %>% 
-ggplot(aes(x=date,y=values,color=Forecast,group=Forecast))+geom_line(size=0.8)+
-theme_linedraw()+
-theme(axis.text.x = 
-element_text(face = "bold",colour = "black",angle = 90,size = 9),
-axis.text.y = element_text(face = "bold",colour = "black",size = 9))+
-scale_fill_brewer(palette = "Set1")+
-labs(x="",y="")+
-scale_y_continuous(breaks = c(5000,10000,15000,20000,25000,30000,35000,40000))
 
 #-----------------------------------------------------------------------------
 
@@ -452,4 +438,51 @@ ship_modes_dt
 ship_modes_chart
 ```
 
+
+# Forecasting_Models
+## row{.tabset}
+### Weekly_Detect_Model
+```{r}
+detect_model_dt
+```
+
+### Weekly_Detect_Chart
+```{r}
+ggplotly( detect_model_chart ,width = 1000)
+```
+
+### Weekly Next Year Model
+```{r}
+weekly_real_forecast_dt
+```
+
+
+### Weekly Real Chart
+```{r}
+ggplotly( weekly_real_forecast_chart,width=1000)
+```
+
+
+
+### Monthly Detect Last Year
+```{r}
+monthly_detect_dt
+```
+
+### Monthly Detect chart
+```{r}
+ggplotly( monthly_detect_chart,width=1000)
+```
+
+
+### Monthly Forecast Next Year
+```{r}
+Month_Forecast_dt
+```
+
+### Monthly Next Year Chart
+```{r}
+ggplotly( Month_Forecast_chart,width=1000)
+
+```
 
