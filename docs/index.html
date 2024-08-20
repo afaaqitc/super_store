@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Super Store Report</title>
+
+<meta property="og:title" content="Super Store Report" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<link href="site_libs/value-box-accent-static-0.6.2/theme-cosmo-value-box.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.2/flexdashboard.min.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.2/theme-cosmo.css" rel="stylesheet" />
+<link href="site_libs/value-box-core-0.6.2/value-box.css" rel="stylesheet" />
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="site_libs/dt-ext-rowgroup-1.13.6/css/rowGroup.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-rowgroup-1.13.6/js/dataTables.rowGroup.min.js"></script>
+<style type="text/css">
+/*
+  CSS for flexdashboard.js' use of Sly(). The sizing/position of this CSS needs to be
+  applied _before_ flexdashboard.js initializes, which is why this CSS has been pulled
+  out from flexdashboard.scss and inlined in the document's head.
+*/
+
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
+  outline: none;
+  padding: 0;
+}
+
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
+
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
+}
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
+}
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
+}
+
+.storyboard-nav .sbnext {
+  float: right;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
+}
+
+.sbframe-commentary {
+  width: 300px;
+}
+
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
+  display: none;
+}
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+
+<span class="navbar-logo pull-left">
+  
+</span>
+<span class="navbar-brand">
+  Super Store Report
+  <span class="navbar-author">
+        </span>
+</span>
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<img class="mobile-figure" data-mobile-figure-id=fig1 src="index_files/figure-html/unnamed-chunk-12-1.mb.png" />
+<script type="text/javascript">
+
+
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false,
+      resize_reload: true
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.append(h1.contents());
+        h3.insertBefore(h1);
+        h1.detach();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if resize_reload is set to true and it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    if (_options.resize_reload) {
+      $(window).on('resize', function() {
+        if (_options.isMobile !== isMobilePhone() ||
+            _options.isPortrait !== isPortrait()) {
+          window.location.reload();
+        }
+      });
+    } else {
+      // if in desktop mode and resizing to mobile, make sure the heights are 100%
+      // This enforces what `fillpage.css` does for "wider" pages.
+      // Since we are not reloading once the page becomes small, we need to force the height to 100%
+      // This is a new situation introduced when `_options.resize_reload` is `false`
+      if (! _options.isMobile) {
+        // only add if `fillpage.css` was added in the first place
+        if (_options.fillPage) {
+          // fillpage.css
+          $("html,body,#dashboard").css("height", "100%");
+        }
+      }
+    }
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          var a = navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target);
+          a.removeClass("nav-link").addClass("dropdown-item");
+          li.append(a);
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li class="nav-item"></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li class="nav-item"></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('data-bs-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+    var navmenuIcon = page.attr('data-navmenu-icon');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+
+    // get a reference to the h1, discover its inner contens, then detach it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.contents();
+    h1.detach();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    a.attr('data-bs-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, navmenuIcon, navmenu, container);
+      li.find("> a").removeClass("nav-link").addClass("dropdown-item");
+      menu.append(li);
+    } else {
+      li.addClass("nav-item")
+      container.append(li);
+    }
+
+    // mark active tab and corresponding nav menu item
+    if (active)
+      $(a).tab("show");
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a class="nav-link"></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = null;
+      var iconSplit = icon.split(" ");
+      if (iconSplit.length > 1) {
+        iconSet = iconSplit[0];
+        icon = iconSplit.slice(1).join(" ");
+      } else {
+        iconSet = icon.substring(0, dashPos);
+      }
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.append(h2.contents());
+      h3.insertBefore(h2);
+      h2.detach();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.append(h3.contents());
+      h3.detach();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.append(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var pills = tabset.hasClass("tabset-pills");
+    var navClass = pills ? "nav-pills" : "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    var activeTab = 0;
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // see if this is marked as the active tab
+      if (tab.hasClass('active'))
+        activeTab = i;
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingDom = heading.contents();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab" data-bs-toggle="tab" class="nav-link"></a>');
+      a.append(headingDom);
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation" class="nav-item"></li>');
+      li.append(a);
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // set active tab
+    $(tabList.children()[activeTab]).tab("show");
+    var active = $(tabContent.children('div.section')[activeTab]);
+    active.addClass('active');
+    if (fade)
+      active.addClass('in');
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.contents();
+    h3.detach();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.empty().append(blockquote.children('p:first-child').contents());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.empty().append(caption.contents());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.decodeURIComponent(window.location.hash);
+    if (hash.length > 0) {
+      // Update the tab without .showPage() so that we don't change page history
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    }
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.decodeURIComponent(window.location.hash);
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        // returning to the base page URL without a hash activates first tab
+        $('ul.nav a:first').tab('show');
+      }
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.append(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var iconSplit = chartIcon.split(" ");
+      if (iconSplit.length > 1) {
+        iconLib = iconSplit[0];
+        chartIcon = iconSplit.slice(1).join(" ");
+      } else {
+        var components = chartIcon.split("-");
+        if (components.length > 1)
+          iconLib = components[0];
+      }
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // If valueBox(color=) was an accent color, this attr should
+      // be populated with the accent color and the relevant CSS comes
+      // in through HTML dependencies
+      var dataColorAccent = valueOutput.attr('data-color-accent');
+      var valueBoxClasses = "value-box-" + (["primary", "info", "danger", "warning", "success"].join(" value-box-"));
+      if (dataColorAccent) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.addClass('value-box-' + dataColorAccent);
+      }
+
+      // If valueBox(color=) was a CSS color, these other data-color-*
+      // attrs will be populated
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.css('background-color', dataColor);
+      }
+      var dataColorText = valueOutput.attr('data-color-text');
+      if (dataColorText) {
+        valueBox.find(".inner").css('color', dataColorText);
+      }
+      var dataColorIcon = valueOutput.attr('data-color-icon');
+      if (dataColorIcon) {
+        valueBox.find(".icon").css('color', dataColorIcon);
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+</script>
+
+<div id="dashboard-container">
+
+<div id="main" class="section level1">
+<h1>Main</h1>
+<div id="row" class="section level2" data-width="5">
+<h2>row</h2>
+<div id="sales" class="section level3">
+<h3>Sales</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-caption="Sales" data-color="#DCDDE1" data-color-text="#1a1a1a" data-color-icon="#eeeef0">2,295,273.92</span>
+</div>
+<div id="profits" class="section level3">
+<h3>Profits</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-caption="Profits" data-color="#DCDDE1" data-color-text="#1a1a1a" data-color-icon="#eeeef0">285,989.28</span>
+</div>
+<div id="quantiities" class="section level3">
+<h3>Quantiities</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-caption="Quantites" data-color="#DCDDE1" data-color-text="#1a1a1a" data-color-icon="#eeeef0">39,763.00</span>
+</div>
+<div id="items" class="section level3">
+<h3>Items</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-caption="Items" data-color="#DCDDE1" data-color-text="#1a1a1a" data-color-icon="#eeeef0">1,850.00</span>
+</div>
+</div>
+<div id="row-1" class="section level2" data-hight="440,.tabset">
+<h2>row</h2>
+<div id="categories" class="section level3">
+<h3>Categories</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8284803b7c1082ea978f" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8284803b7c1082ea978f">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"fillContainer":true,"data":[["1","2","3"],["Technology","Office Supplies","Furniture"],[174753,151776,157193],[162781,137233,170518],[225663,184446,199877],[271030,245591,214412],[834227,719046,742000]],"container":"<table class=\"hover row-border fill-container\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>categories<\/th>\n      <th>Y14<\/th>\n      <th>Y15<\/th>\n      <th>Y16<\/th>\n      <th>Y17<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["csv","excel","pdf"],"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"className":"dt-center","targets":1},{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"categories","targets":1},{"name":"Y14","targets":2},{"name":"Y15","targets":3},{"name":"Y16","targets":4},{"name":"Y17","targets":5},{"name":"Total","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render"],"jsHooks":[]}</script>
+</div>
+<div id="chart" class="section level3">
+<h3>Chart</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-b840076481957120b66d" style="width:600px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b840076481957120b66d">{"x":{"data":[{"orientation":"v","width":[0.22499999999999964,0.22500000000000009,0.22500000000000009],"base":[0,0,0],"x":[2.6624999999999996,0.66249999999999987,1.6624999999999999],"y":[174752.70499999999,157192.85310000001,151776.41200000001],"text":["categories: Technology<br />sales: 174752.7<br />years: 2014","categories: Furniture<br />sales: 157192.9<br />years: 2014","categories: Office Supplies<br />sales: 151776.4<br />years: 2014"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(27,158,119,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"2014","legendgroup":"2014","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.22500000000000009,0.22499999999999964,0.22500000000000009],"base":[0,0,0],"x":[0.88749999999999996,2.8875000000000002,1.8875],"y":[170518.23699999999,162780.80900000001,137233.46299999999],"text":["categories: Furniture<br />sales: 170518.2<br />years: 2015","categories: Technology<br />sales: 162780.8<br />years: 2015","categories: Office Supplies<br />sales: 137233.5<br />years: 2015"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(217,95,2,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"2015","legendgroup":"2015","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.22499999999999964,0.22500000000000009,0.22499999999999987],"base":[0,0,0],"x":[3.1124999999999998,1.1125,2.1124999999999998],"y":[225663.476,199876.92600000001,184446.32000000001],"text":["categories: Technology<br />sales: 225663.5<br />years: 2016","categories: Furniture<br />sales: 199876.9<br />years: 2016","categories: Office Supplies<br />sales: 184446.3<br />years: 2016"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(117,112,179,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"2016","legendgroup":"2016","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.22499999999999964,0.22499999999999964,0.22500000000000009],"base":[0,0,0],"x":[3.3375000000000004,2.3375000000000004,1.3375000000000001],"y":[271030.10700000002,245590.837,214411.77919999999],"text":["categories: Technology<br />sales: 271030.1<br />years: 2017","categories: Office Supplies<br />sales: 245590.8<br />years: 2017","categories: Furniture<br />sales: 214411.8<br />years: 2017"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(231,41,138,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"2017","legendgroup":"2017","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":28.705975779233675,"r":7.3059360730593621,"b":28.31411193531504,"l":70.73474470734746},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,3.6000000000000001],"tickmode":"array","ticktext":["Furniture","Office Supplies","Technology"],"tickvals":[1,2,3],"categoryorder":"array","categoryarray":["Furniture","Office Supplies","Technology"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":11.955168119551683},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-13551.505350000001,284581.61235000001],"tickmode":"array","ticktext":[0,100000,200000],"tickvals":[0,100000,200000],"categoryorder":"array","categoryarray":[0,100000,200000],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":11.955168119551683},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176002,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716894984},"title":{"text":"years","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","width":600,"barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"3d79471d104f8":{"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"3d79471d104f8","visdat":{"3d79471d104f8":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="sales-dates" class="section level1">
+<h1>Sales Dates</h1>
+<div id="row-2" class="section level2 tabset">
+<h2 class="tabset">row</h2>
+<div id="year_month" class="section level3">
+<h3>Year_month</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-92c031cee689ceb73bb3" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-92c031cee689ceb73bb3">{"x":{"filter":"none","vertical":false,"extensions":["Buttons","RowGroup"],"fillContainer":true,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247"],[2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017],["1_Jan","2_Jan","3_Jan","4_Jan","5_Jan","5_Feb","6_Feb","7_Feb","8_Feb","9_Feb","9_Mar","10_Mar","11_Mar","12_Mar","13_Mar","14_Apr","15_Apr","16_Apr","17_Apr","18_Apr","18_May","19_May","20_May","21_May","22_May","22_Jun","23_Jun","24_Jun","25_Jun","26_Jun","27_Jul","28_Jul","29_Jul","30_Jul","31_Jul","31_Aug","32_Aug","33_Aug","34_Aug","35_Aug","35_Sep","36_Sep","37_Sep","38_Sep","39_Sep","40_Sep","40_Oct","41_Oct","42_Oct","43_Oct","44_Oct","44_Nov","45_Nov","46_Nov","47_Nov","48_Nov","48_Dec","49_Dec","50_Dec","51_Dec","52_Dec","1_Jan","2_Jan","3_Jan","4_Jan","5_Jan","5_Feb","6_Feb","7_Feb","8_Feb","9_Feb","9_Mar","10_Mar","11_Mar","12_Mar","13_Mar","14_Apr","15_Apr","16_Apr","17_Apr","18_Apr","18_May","19_May","20_May","21_May","22_May","22_Jun","23_Jun","24_Jun","25_Jun","26_Jun","27_Jul","28_Jul","29_Jul","30_Jul","31_Jul","31_Aug","32_Aug","33_Aug","34_Aug","35_Aug","35_Sep","36_Sep","37_Sep","38_Sep","39_Sep","40_Sep","40_Oct","41_Oct","42_Oct","43_Oct","44_Oct","44_Nov","45_Nov","46_Nov","47_Nov","48_Nov","48_Dec","49_Dec","50_Dec","51_Dec","52_Dec","53_Dec","1_Jan","2_Jan","3_Jan","4_Jan","5_Jan","5_Feb","6_Feb","7_Feb","8_Feb","9_Feb","9_Mar","10_Mar","11_Mar","12_Mar","13_Mar","14_Mar","14_Apr","15_Apr","16_Apr","17_Apr","18_Apr","18_May","19_May","20_May","21_May","22_May","22_Jun","23_Jun","24_Jun","25_Jun","26_Jun","27_Jun","27_Jul","28_Jul","29_Jul","30_Jul","31_Jul","31_Aug","32_Aug","33_Aug","34_Aug","35_Aug","36_Sep","37_Sep","38_Sep","39_Sep","40_Sep","40_Oct","41_Oct","42_Oct","43_Oct","44_Oct","44_Nov","45_Nov","46_Nov","47_Nov","48_Nov","49_Dec","50_Dec","51_Dec","52_Dec","53_Dec","1_Jan","2_Jan","3_Jan","4_Jan","5_Jan","5_Feb","6_Feb","7_Feb","8_Feb","9_Feb","9_Mar","10_Mar","11_Mar","12_Mar","13_Mar","14_Apr","15_Apr","16_Apr","17_Apr","18_Apr","18_May","19_May","20_May","21_May","22_May","22_Jun","23_Jun","24_Jun","25_Jun","26_Jun","27_Jul","28_Jul","29_Jul","30_Jul","31_Jul","31_Aug","32_Aug","33_Aug","34_Aug","35_Aug","35_Sep","36_Sep","37_Sep","38_Sep","39_Sep","40_Sep","40_Oct","41_Oct","42_Oct","43_Oct","44_Oct","44_Nov","45_Nov","46_Nov","47_Nov","48_Nov","48_Dec","49_Dec","50_Dec","51_Dec","52_Dec","53_Dec"],[0,149.95,0,0,0,0,129.568,0,0,0,705.562,0,590.7620000000001,145.13,1458.558,0,39.072,643.98,1048.74,0,1091.35,310.88,4264.328,221.968,0,456.272,0,139.8,792.76,79.56,265.521,0,2613.184,1367.84,0,262.89,0,1838.722,2070.13,0,22.08,1855.228,820.523,211.96,4.71,0,147.392,206.724,223.808,2813.812,0,1694.564,1054.7612,7226.086,1705.99,0,505.88,573.336,45.534,1950.202,5253.27,0,0,0,4297.644,0,0,0,105.844,25.87,0,0,0,0,0,0,0,0,152.916,7.968,0,0,238.384,169.544,0,0,0,0,0,0,0,21.12,0,0,0,0,72.65000000000001,0,0,0,0,0,0,31.12,0,0,0,0,0,0,104.51,0,0,542.178,0,13.12,0,0,34.02,4.98,194.32,3251.34,0,0,0,0,0,0,866.4,0,0,0,0,0,635.6,0,0,11.34,0,1294.75,6.12,0,0,0,0,5.98,122.22,1311.97,0,0,0,173.488,0,191.88,0,0,0,89.95,0,0,248.82,0,15.712,0,23.968,0,1137.338,0,99.136,0,0,0,0,0,0,0,479.97,36.72,100.616,970.1420000000001,0,828.654,0,0,0,0,0,0,0,0,0,0,0,0,0,0,843.1,0,0,81.40000000000001,0,69.66,0,61.608,0,1386.346,0,0,0,0,0,0,0,595.6559999999999,0,476.354,3.816,0,2012.302,0,0,0,80.56399999999999,4590.344,0,0,0,15.92,7359.918,0,0,19.98,0,0,0,2921.43,0,384.1,559.2,35.712,491.888,0,10.68,580.936,377.736,177.636,0],[0,40.544,299.964,46.02,240.5,0,330.512,0,95.59,19.456,0,0,0,0,0,233.45,0,0,0,0,0,1799.97,0,180.93,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,127.95,0,354.8888,598.144,0,249.36,194.322,0,0,0,43.68,0,907.5600000000001,203.66,0,129.98,0,0,0,0,0,0,0,0,0,0,0,0,0,1969.267,51.016,5652.9396,4623.37,299.22,757.992,4161.972,0,1571.695,0,305.622,3141.1995,72.33199999999999,794.146,0,1192.31,3373.564,1883.087,857.08,1631.902,1587.114,3029.386,208.272,443.802,0,494.8692,586.896,0,639.9739999999999,0,1874.898,1415.726,11525.006,4220.594,1158.414,0,222.12,3219.554,15.128,244.24,0,834.874,1127.992,1040.784,1484.082,0,1972.645,3080.38,1918.492,7484.566000000001,1381.344,0,83.57599999999999,405.344,1167.056,39.68,0,197.868,69.93000000000001,0,46.72,0,7264.422,7879.734,2360.334,745.774,640.7619999999999,0,1970.574,1466.572,271.616,486.672,0,2701.28,918.878,1582.008,1975.356,157.844,0,1688.472,147.275,2475.094,1352.95,0,3882.231,2149.96,991.095,2033.374,0,497.91,151.82,496.114,0,5766.152,4493.9836,2101.182,615.5700000000001,1307.792,0,830.4,1650.618,946.174,978.7900000000001,0,3802.796,4723.478,142.684,6394.538,7365.455,4709.095,2637.087,1043.128,1277.68,0,0,848.52,2013.715,3055.28,913.354,0,773.764,1337.442,117.8,1450.126,0,710.804,2014.381,14816.068,656.407,114.42,1345.824,2033.24,576.5756,0,1389.405,449.469,1830.508,886.026,5058.362,0,2227.038,4057.51,579.019,4521.9912,380.378,504.542,2283.208,1142.68,0,531.348,1823.07,9517.288,685.056,3162.83,0,3848.565,4367.347,338.172,559.271,0,6684.616,5635.354,2781.8702,999.8680000000001,6294.386,0,4751.492,4755.234,1153.109,6645.282,0,2916.514,3897.714,2140.94,1657.3508,0],[16.448,54.83,0,0,290.666,0,180.32,576.726,8.85,0,0,1561.062,2108.55,4109.816,1823.804,475.844,1915.24,1020.532,2379.994,506.12,0,394.48,289.28,323.758,1924.913,0,1374.001,14.52,1828.9496,616.14,247.408,2187.206,273.04,8341.289999999999,228.328,0,3955.629,842.782,23.104,832.3225,0,296.304,4904.66,9338.637000000001,1480.614,0,862.683,2049.386,136.068,56.48999999999999,5362.026,0,1449.142,1034.73,1249.622,2280.83,0,2554.898,4938.4045,3436.76,2041.414,0,364.07,0,43.66,2161.64,0,2432.544,0,316.78,1159.271,0,1555.244,1384.856,1548.194,83.7,0,169.542,2745.106,25.99,450.94,0,3981.968,69.908,3862.098,1204.842,0,1533.198,174.476,446.346,1592.196,823.982,43.286,448.082,525.95,3712.162,0,968.206,0,2827.52,6491.293000000001,0,1071.284,1962.13,3924.32,3033.757,1269.266,0,2133.535,824.97,2262.296,2122.044,0,11.481,3591.0772,2861.15,3109.7835,0,5185.814,1590.894,935.288,4204.968,1932.096,1859.158,701.923,917.63,0,0,2994.476,1366.04,392.66,0,0,315.45,896.0219999999999,1061.682,1346.97,2161.48,0,2906.404,1501.152,1765.465,0,0,236.96,0,2471.913,5305.078,0,71.08799999999999,1412.396,3000.92,5310.952,1724.376,0,2616.512,380.2,1368.048,819.154,0,197.05,3951.9605,448.792,4874.298,6792.193,84.992,425.886,1322.145,525.884,0,973.712,3335.888,7951.592,2899.021,0,3888.818,4944.296,3958.932,7978.550999999999,4684.616,1855.483,628.5419999999999,6965.857,773.774,0,33.74,4619.33,767.838,331.914,0,922.327,227.103,2964.8174,1448.676,0,2000.104,1252.952,542.746,1257.298,4981.0108,1971.2905,652.9299999999999,1254.564,795.296,0,185.123,970.384,4919.182,270.24,135.706,0,939.133,2724.194,0,4721.977,1620.25,3598.934,3685.944,1170.564,0,20.07,708.726,7078.483999999999,361.988,1261.81,0,2184.327,7285.026,7871.213,1944.08,0,1499.652,8405.802,1333.858,1086.32,0,4536.937,4007.548,13694.8828,4959.641,5331.178,0,7643.041,306.888,7442.021,2915.534,0],[288.06,9.94,64.864,0,468.9,0,14.56,21.36,19.44,2203.151,0,0,370.782,464.093,890.841,5295.098,1912.123,205.47,282.568,0,72.63200000000001,2343.799,91.68000000000001,116.28,773.7,0,281.397,212.94,4107.443,1645.791,1444.104,1960.012,461.326,5039.994,886.28,0,3605.685,853.092,565.224,121.24,0,100.36,1275.408,5335.968,773.4399999999999,0,728.7479999999999,1381.164,3134.916,103.882,4732.08,0,333.576,1780.822,1103.298,649.044,0,1970.978,293.152,6962.440000000001,2966.388,1768.2216,1018.104,350.384,13.12,99.26000000000001,0,324.11,1079.962,2591.1,551.264,0,807.5400000000001,707.9000000000001,1270.379,243.344,1484.598,1328.346,2006.96,920.946,167.232,0,48.81,255.968,1304.956,681.1,0,0,1128.898,829.544,0,1138.288,1941.952,672.418,2395.024,1011.696,0,840.102,497.59,66.63200000000001,246.5,0,934.103,707.824,500.38,3722.273,0,275.218,2248.194,77.88,831.145,3211.009,0,3073.073,2512.71,3613.5748,1864.482,0,897.322,1448.854,6120.656,561.486,0,0,743.0459999999999,102.218,1732.3,3107.316,0,132.224,146.82,16.496,243.892,0,162.344,1694.642,138.68,682.246,1454.9,0,1115.197,9335.086000000001,720.3680000000001,142.208,0,4835.976,455.93,2718.214,2137.324,0,2316.523,1623.416,541.938,893.266,772.7859999999999,0,573.2859999999999,910.17,654.587,1770.776,0,320.388,731.524,14.78,767.9110000000001,2365.596,2094.324,2043.126,2286.05,781.414,0,561.5360000000001,1620.15,188.28,131.154,0,4266.8988,4914.938,638.462,8329.743,5269.816,3459.71,12185.134,1938.26,1137.688,3395.59,1056.038,2546.643,1007.52,0,32.67,1241.516,287.326,430.492,0,228.822,1973.708,1027.758,3567.026,5972.988,6401.929999999999,332.338,947.692,1053.26,0,2774.6258,3066.378,2997.578,2084.908,0,2952.036,2513.343,3896.672,1287.614,639.83,1980.264,2132.229,556.3140000000001,1391.294,0,503.676,3693.084,512.446,190.66,9354.853999999999,0,4356.061,849.65,2103.826,540.76,0,2749.21,134.332,4537.201,408.726,0,10668.096,1815.218,1469.756,3666.157,9951.182000000001,0,5470.39,858.702,1926.776,713.7900000000001,0],[19.536,0,378.594,1097.25,211.646,0,0,9.039999999999999,11.364,202.384,0,0,471.92,945.064,1170.322,1533.906,638.576,1250.45,0,0,187.432,1642.802,948.9480000000001,119.54,5188.52,0,2501.264,942.9739999999999,1975.498,46.68,1038.472,351.216,2285.786,580.0599999999999,0,477.994,0,500.342,59.74,92.52,0,3523.875,5023.716,2679.652,490.292,0,191.9,58.53,641.104,447.88,2126.37,0,1574.094,1355.9285,1363.28,219.154,0,548.4,7641.658,1933.44,3732.296,264.46,0,0,0,0,0,129.092,1602.38,79.36,1642.1744,0,2563.296,16.776,2481.424,1559.08,2974.058,40.74,329.96,2090.1055,0,2198.76,154.442,134.468,610.3069999999999,5178.138,0,59.768,51.072,107.976,1386.466,121.646,2052.567,2.025,969.225,1290.478,0,4878.392,3378.932,1202.278,0,0,1005.654,3445.772,1836.052,2382.958,0,505.58,1011.8955,378.494,1425.412,3106.106,0,12196.997,702.17,614.499,2760.168,0,6061.502,1023.386,1107.464,5148.4472,0,2095.83,174.75,1040.55,31.36,1601.554,0,762.1420000000001,837.921,1524.126,36.48,0,811.303,8866.882,928.311,92.7,0,441.198,950.5939999999999,421.085,1607.1,517.866,0,1340.244,648.9119999999999,1799.2,1063.185,0,659.8200000000001,2962.563,17.12,1919.6,0,847.7,895.895,2184.88,326.964,2174.158,0,179.97,923.688,4798.292,322.0248,4532.042,6501.586,4751.082,3443.091,18452.972,0,546.92,142.182,467.422,159.002,0,773.256,2945.138,3070.333,1651.239,944.2860000000001,6102.25,7051.35,10488.055,1481.828,892.98,2140.28,4212.371999999999,294.842,0,2263.012,0,1314.59,2847.646,0,1240.02,353.28,2166.248,3252.88,822.97,1626.71,944.429,1199.222,1390.126,0,2549.468,4182.062,538.02,1480.103,0,279.414,1580.894,1031.1555,1508.352,169.192,1671.214,316.636,898.188,523.376,0,1424.026,2643.164,692.95,6190.538,0,1595.849,2506.646,4979.226,6450.462,2978.466,0,608.356,1017.94,15158.877,46.96,0,2355.064,2911.386,7397.272,5048.172,0,1403.842,3873.559,2027.758,6233.054,0,0],[4407.1,3553.795,2673.87,426.67,0,97.11200000000001,0,54.208,55.672,0,1345.892,741.956,3960.358,65.38,1959.552,1021.17,0,845.36,2578.476,0,260.977,734.846,91.62,1325.718,738.598,0,5463.008,763.792,109.496,739.6239999999999,241.194,292.594,1961.482,193.152,0,2743.154,451.6199999999999,0,1451.65,469.436,0,14228.428,133.436,1240.266,8109.070000000001,0,494.71,2212.182,1501.104,22.32,0,2784.163,2002.556,11544.274,5578.606,5624.39,0,1095.12,1264.466,798.968,2072.096,295.272,854.614,301.742,182.72,0,0,785.552,160.43,37.776,899.5699999999999,0,478.008,7230.21,633.302,571.224,140.004,3192.678,1194.726,2719.59,0,1121.362,191.968,10.86,1739.418,834.198,0,1083.112,734.144,2018.953,432.926,1379.812,2033.256,2693.168,29.97,0,0,851.4739999999999,381.64,7194.775,2601.797,0,2922.667,3262.42,6982.058,1058.364,0,851.092,2390.758,2135.09,1395.333,5528.551,0,4620.292,4072.334,3450.188,1798.397,0,1338.298,858.304,3257.76,79.2,0,1069.22,149.444,0,858.712,161.97,0,1369.476,407.072,983.17,111.104,0,21.072,669.3680000000001,645.7059999999999,125.3,0,970.194,0,2514.538,108.42,1098.136,0,1283.512,880.4599999999999,10560.978,8090.578,0,6026.312,430.438,1229.548,778.706,0,1651.301,0,2891.858,5920.488,1124.648,0,1115.204,1680.266,405.35,632.188,5226.348,2043.792,3839.312,2698.1665,0,1680.696,282.753,2953.346,1365.498,3750.499,0,3810.464,2774.062,1176.891,3428.372,5267.004,1981.115,815.1120000000001,1829.418,0,0,274.491,6230.292,450.334,3749.335,0,904.354,1058.43,1150.29,0,0,778.236,4791.35,899.568,2933.516,32.528,755.529,3431.459,928.558,4108.37,0,3658.554,421.264,336.562,691.1080000000001,0,491.112,1679.968,2115.941,4224.136,6963.404,359.214,2191.873,2399.96,1558.028,0,3479.624,440.736,8551.054,1443.632,0,5360.202,5564.006,1511.93,1412.213,5418.022,0,1496.589,3473.597,3352.394,4025.73,0,4288.75,6633.4202,2988.274,1618.254,0,2639.638,2823.965,3645.911,2698.927,2079.554],[87.15799999999999,61.96,25.248,3.928,0,134.384,2043.4,37.784,0,0,370.452,918.3140000000001,28106.716,459.146,119.888,1958.75,294.72,257.752,768.8439999999999,0,254.456,898.3819999999999,320.104,2157.394,0,741.336,491.55,3418.502,4.272,601.024,763.074,9.51,1348.344,0,0,2408.724,1832.38,1439.106,366.81,3254.15,0,4043.588,33.552,10662.337,987.532,0,237.36,4525.484,1356.602,1510.582,0,6693.748000000001,8114.548,3406.855,4415.695,1771.808,0,1522.652,4394.187,942.1080000000001,2172.651,31.538,622.278,0,3573.252,0,492.836,77.23999999999999,0,0,0,0,90.93199999999999,48.84,412.95,200.716,907.436,35.208,893.09,4044.362,0,0,1060.35,0,982.5640000000001,0,0,797.116,3443.904,836.958,0,0,860.9160000000001,0,0,0,0,196.112,0,178.526,2367.564,0,89.64,2535.85,1783.504,0,0,0,371.66,720.086,0,0,2800.846,3536.904,3885.986,1218.764,7130.594,0,2672.728,5494.795999999999,473.313,6.36,0,255.904,0,0,0,8996.784000000001,0,121.83,1135.638,57.576,6285.806,0,2190.81,2356.808,226.468,2659.339,0,1046.334,1542.53,1414.132,434.646,0,1099.013,763.0200000000001,346.922,277.756,438.859,0,51.562,3457.099,577.1079999999999,877.1559999999999,0,0,95.76000000000001,1536.454,0,482.584,0,661.3539999999999,204.54,4187.348,1656.87,1313.536,2374.73,1232.004,1992.9858,0,5912.782,33.064,307.92,783.96,453.374,0,993.9000000000001,2145.718,317.044,300.592,3878.276,1194.088,134.54,959.49,0,2070.272,0,0,418.666,0,0,0,0,47.904,17.62,0,166.59,49.616,3332.636,1504.702,808.47,319.806,0,678.1129999999999,399.11,0,1078.222,221.024,241.436,736.8904,0,31.35,1156.018,1028.228,1644.906,0,1728.892,2106.794,798.742,2085.65,0,0,1949.872,524.54,235.468,0,327.044,491.55,1648.188,1486.576,0,2504.48,239.358,126.352,529.0849999999999,523.928,0,2413.378,834.658,2236.184,6912.944,0,1453.136,0,1895.926,814.5939999999999,0],[4818.302000000001,3871.019,3442.54,1573.868,1211.712,231.496,2698.36,699.1179999999999,190.916,2424.991,2421.906,3221.332,35609.088,6188.629,7422.965,10518.218,4799.731,4223.544,7058.622,506.12,1866.847,8125.159,6005.959999999999,4445.588,8625.731,1197.608,10111.22,5492.528,8818.418600000001,3728.819,3999.773,4800.538,8943.162,15522.336,1114.608,5892.762,9845.314,5474.044,4536.658,4769.6685,22.08,24047.783,12319.245,29468.82,12200.5468,598.144,2662.793,10682.83,7187.924,4954.966,12220.476,11172.475,14572.3572,26348.6955,16324.051,10748.886,505.88,8395.364,18577.4015,16023.918,18238.115,2359.4916,2859.066,652.126,8110.396,2260.900000000001,492.836,3748.538,2948.616,3050.886,4252.279399999999,1969.267,5546.036,15041.5216,10969.619,2957.284,6264.088,8928.485999999999,7322.758000000001,11380.6565,618.172,3625.744,8817.121499999999,713.0799999999999,9293.489,7898.278,1192.31,6846.758,7415.581,5096.857,5043.49,5071.962,9961.362999999999,4023.965,4363.971,6014.336,567.5192000000001,8321.181999999999,4258.162,12109.705,11707.154,1874.898,7439.074,23470.122,19246.908,11355.766,1269.266,1854.01,11375.5965,4151.648,6262.936,13967.71,3635.72,25108.917,15805.0612,13255.3778,16663.4245,1972.645,19270.064,12339.706,19573.367,14633.1452,1932.096,5363.688,2174.507,3227.454,2662.052,13867.624,4058.744,3821.642,2920.111,2628.088,6677.282,7579.872,12596.885,17009.716,4031.909,6373.166999999999,1454.9,8629.454,6582.165,15721.922,3357.206,1758.21,4037.253,9147.610000000001,6508.365,23948.552,11887.79,71.08799999999999,12155.085,11795.199,10151.76,7737.933999999999,772.7859999999999,8997.744000000001,4095.101,9972.455,9754.567000000001,5552.166,943.78,6380.6965,4500.636,14280.068,15961.3068,18016.4976,16678.838,13803.239,12353.1053,19234.386,9397.59,6410.779,13921.364,6682.971,4494.029,7691.614,19992.2628,16918.192,19676.435,26730.159,21923.96,16831.446,28195.121,17266.677,2619.516,6392.582,8938.659,15770.86,5558.556,4662.689,3218.009,3146.737,6962.6054,6042.808,1467.746,3468.946,6078.67,10592.099,27125.476,16952.9938,10955.3485,4420.516,8866.177,5483.5366,4507.48,8284.9678,13405.069,10927.576,5299.275,6622.0664,3231.45,7782.87,14545.5175,7114.809999999999,15922.0322,13091.864,8644.262999999999,11722.321,9438.918,3643.678,2479.12,12347.668,20272.34,21094.18,15458.594,1595.849,18582.845,23552.725,27283.709,8921.366,5418.022,14066.294,16929.375,27411.7552,6423.353,13765.474,17560.097,20571.872,35344.423,20087.249,30950.728,1403.842,24006.958,10495.963,23662.364,8977.8318,2079.554]],"container":"<table class=\"hover row-border fill-container\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>years<\/th>\n      <th>week_month<\/th>\n      <th>Monday<\/th>\n      <th>Tuesday<\/th>\n      <th>Wednesday<\/th>\n      <th>Thursday<\/th>\n      <th>Friday<\/th>\n      <th>Saturday<\/th>\n      <th>Sunday<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["csv","excel","pdf"],"rowGroup":{"dataSrc":1},"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":8,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":9,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"className":"dt-center","targets":[1,2,3,4,5,6,7,8,9,10]},{"visible":false,"targets":1},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"years","targets":1},{"name":"week_month","targets":2},{"name":"Monday","targets":3},{"name":"Tuesday","targets":4},{"name":"Wednesday","targets":5},{"name":"Thursday","targets":6},{"name":"Friday","targets":7},{"name":"Saturday","targets":8},{"name":"Sunday","targets":9},{"name":"Total","targets":10}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.columnDefs.7.render"],"jsHooks":[]}</script>
+</div>
+<div id="chart-1" class="section level3">
+<h3>Chart</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-87d1b71154ffe653c165" style="width:1000px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-87d1b71154ffe653c165">{"x":{"data":[{"x":[1,2,3,4,5,6,7,8,9,10,11,12],"y":[14917.441000000001,6244.8810000000003,54863.919999999998,27106.235000000001,29069.285,29348.5936,34380.417000000001,30518.446500000002,78656.618799999997,37708.989000000001,79166.464699999997,61740.678500000002],"text":["months: January<br />sales:  14917.441<br />years: 2014<br />years: 2014","months: February<br />sales:   6244.881<br />years: 2014<br />years: 2014","months: March<br />sales:  54863.920<br />years: 2014<br />years: 2014","months: April<br />sales:  27106.235<br />years: 2014<br />years: 2014","months: May<br />sales:  29069.285<br />years: 2014<br />years: 2014","months: June<br />sales:  29348.594<br />years: 2014<br />years: 2014","months: July<br />sales:  34380.417<br />years: 2014<br />years: 2014","months: August<br />sales:  30518.447<br />years: 2014<br />years: 2014","months: September<br />sales:  78656.619<br />years: 2014<br />years: 2014","months: October<br />sales:  37708.989<br />years: 2014<br />years: 2014","months: November<br />sales:  79166.465<br />years: 2014<br />years: 2014","months: December<br />sales:  61740.679<br />years: 2014<br />years: 2014"],"type":"scatter","mode":"lines","line":{"width":3.0236220472440949,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","name":"2014","legendgroup":"2014","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10,11,12],"y":[16241.979600000001,14493.1554,36483.727599999998,34514.160499999998,30347.712500000001,25594.995999999999,29435.597000000002,36963.722200000004,64656.034,37611.900500000003,74468.500499999995,69721.023199999996],"text":["months: January<br />sales:  16241.980<br />years: 2015<br />years: 2015","months: February<br />sales:  14493.155<br />years: 2015<br />years: 2015","months: March<br />sales:  36483.728<br />years: 2015<br />years: 2015","months: April<br />sales:  34514.160<br />years: 2015<br />years: 2015","months: May<br />sales:  30347.713<br />years: 2015<br />years: 2015","months: June<br />sales:  25594.996<br />years: 2015<br />years: 2015","months: July<br />sales:  29435.597<br />years: 2015<br />years: 2015","months: August<br />sales:  36963.722<br />years: 2015<br />years: 2015","months: September<br />sales:  64656.034<br />years: 2015<br />years: 2015","months: October<br />sales:  37611.901<br />years: 2015<br />years: 2015","months: November<br />sales:  74468.500<br />years: 2015<br />years: 2015","months: December<br />sales:  69721.023<br />years: 2015<br />years: 2015"],"type":"scatter","mode":"lines","line":{"width":3.0236220472440949,"color":"rgba(124,174,0,1)","dash":"solid"},"hoveron":"points","name":"2015","legendgroup":"2015","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10,11,12],"y":[27295.325000000001,20105.866999999998,49046.449000000001,36048.957000000002,55529.57,42683.851999999999,38372.033000000003,42066.487300000001,80086.065900000001,40906.733,91008.662800000006,86836.720000000001],"text":["months: January<br />sales:  27295.325<br />years: 2016<br />years: 2016","months: February<br />sales:  20105.867<br />years: 2016<br />years: 2016","months: March<br />sales:  49046.449<br />years: 2016<br />years: 2016","months: April<br />sales:  36048.957<br />years: 2016<br />years: 2016","months: May<br />sales:  55529.570<br />years: 2016<br />years: 2016","months: June<br />sales:  42683.852<br />years: 2016<br />years: 2016","months: July<br />sales:  38372.033<br />years: 2016<br />years: 2016","months: August<br />sales:  42066.487<br />years: 2016<br />years: 2016","months: September<br />sales:  80086.066<br />years: 2016<br />years: 2016","months: October<br />sales:  40906.733<br />years: 2016<br />years: 2016","months: November<br />sales:  91008.663<br />years: 2016<br />years: 2016","months: December<br />sales:  86836.720<br />years: 2016<br />years: 2016"],"type":"scatter","mode":"lines","line":{"width":3.0236220472440949,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","name":"2016","legendgroup":"2016","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10,11,12],"y":[41323.345999999998,20837.9054,64218.184800000003,34233.058100000002,44538.9542,48596.679700000001,46541.044000000002,71651.902000000002,85354.516000000003,78596.251199999999,124514.36900000001,70626.512799999997],"text":["months: January<br />sales:  41323.346<br />years: 2017<br />years: 2017","months: February<br />sales:  20837.905<br />years: 2017<br />years: 2017","months: March<br />sales:  64218.185<br />years: 2017<br />years: 2017","months: April<br />sales:  34233.058<br />years: 2017<br />years: 2017","months: May<br />sales:  44538.954<br />years: 2017<br />years: 2017","months: June<br />sales:  48596.680<br />years: 2017<br />years: 2017","months: July<br />sales:  46541.044<br />years: 2017<br />years: 2017","months: August<br />sales:  71651.902<br />years: 2017<br />years: 2017","months: September<br />sales:  85354.516<br />years: 2017<br />years: 2017","months: October<br />sales:  78596.251<br />years: 2017<br />years: 2017","months: November<br />sales: 124514.369<br />years: 2017<br />years: 2017","months: December<br />sales:  70626.513<br />years: 2017<br />years: 2017"],"type":"scatter","mode":"lines","line":{"width":3.0236220472440949,"color":"rgba(199,124,255,1)","dash":"solid"},"hoveron":"points","name":"2017","legendgroup":"2017","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":37.176626298722788,"r":7.3059360730593621,"b":38.113114468087673,"l":77.376504773765063},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,12.6],"tickmode":"array","ticktext":["January","February","March","April","May","June","July","August","September","October","November","December"],"tickvals":[1,2,3,4.0000000000000009,5,6,7.0000000000000009,8,9,10,11,12],"categoryorder":"array","categoryarray":["January","February","March","April","May","June","July","August","September","October","November","December"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176002,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[331.40659999999934,130427.84340000001],"tickmode":"array","ticktext":[25000,50000,75000,100000,125000],"tickvals":[25000,50000,75000,100000,125000],"categoryorder":"array","categoryarray":[25000,50000,75000,100000,125000],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176002,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716894984},"title":{"text":"years","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","width":1000,"barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"3d79446203453":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"3d79446203453","visdat":{"3d79446203453":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="segments" class="section level1">
+<h1>Segments</h1>
+<div id="row-3" class="section level2 tabset">
+<h2 class="tabset">row</h2>
+<div id="segments-1" class="section level3">
+<h3>Segments</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-4d8cc22193a0502f5271" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4d8cc22193a0502f5271">{"x":{"filter":"none","vertical":false,"extensions":["Buttons","RowGroup"],"fillContainer":true,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["2014","2015","2016","2017","2014","2015","2016","2017","2014","2015","2016","2017","Total"],["Consumer","Consumer","Consumer","Consumer","Corporate","Corporate","Corporate","Corporate","Home Office","Home Office","Home Office","Home Office","-"],[1070,1125,1337,1659,611,636,793,980,312,341,467,663,9994],[4053,4272,4968,6515,2732,2413,3106,3758,1311,1294,2506,2835,39763],[266096.81,266535.93,298342.13,330134.51,128026.13,128757.31,207106.36,241847.82,89599.03,75239.27,104538.23,159050.39,2295273.92],[24319.8504,28460.1665,35587.8143,45649.192,13436.8374,20688.3248,30995.169,26782.3633,11689.1498,12470.1124,14899.7981,21010.4997,285989.2777]],"container":"<table class=\"hover row-border fill-container\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>YEARS<\/th>\n      <th>SEGMENT<\/th>\n      <th>ORDERS<\/th>\n      <th>QUANTITIES<\/th>\n      <th>SALES<\/th>\n      <th>PROFITS<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["csv","pdf","excel"],"rowGroup":{"dataSrc":2},"columnDefs":[{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"className":"dt-center","targets":[1,2,3,4,5,6]},{"visible":false,"targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"YEARS","targets":1},{"name":"SEGMENT","targets":2},{"name":"ORDERS","targets":3},{"name":"QUANTITIES","targets":4},{"name":"SALES","targets":5},{"name":"PROFITS","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render"],"jsHooks":[]}</script>
+</div>
+<div id="chart-2" class="section level3">
+<h3>Chart</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-b5faea6ab7e254abc642" style="width:1000px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b5faea6ab7e254abc642">{"x":{"data":[{"x":[1,2,3,4],"y":[266096.81,266535.92999999999,298342.13,330134.51000000001],"text":["years: 2014<br />sales: 266096.81<br />segment: Consumer<br />segment: Consumer","years: 2015<br />sales: 266535.93<br />segment: Consumer<br />segment: Consumer","years: 2016<br />sales: 298342.13<br />segment: Consumer<br />segment: Consumer","years: 2017<br />sales: 330134.51<br />segment: Consumer<br />segment: Consumer"],"type":"scatter","mode":"lines","line":{"width":3.0236220472440949,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","name":"(Consumer,1)","legendgroup":"(Consumer,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4],"y":[128026.13,128757.31,207106.35999999999,241847.82000000001],"text":["years: 2014<br />sales: 128026.13<br />segment: Corporate<br />segment: Corporate","years: 2015<br />sales: 128757.31<br />segment: Corporate<br />segment: Corporate","years: 2016<br />sales: 207106.36<br />segment: Corporate<br />segment: Corporate","years: 2017<br />sales: 241847.82<br />segment: Corporate<br />segment: Corporate"],"type":"scatter","mode":"lines","line":{"width":3.0236220472440949,"color":"rgba(0,186,56,1)","dash":"solid"},"hoveron":"points","name":"(Corporate,1)","legendgroup":"(Corporate,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4],"y":[89599.029999999999,75239.270000000004,104538.23,159050.39000000001],"text":["years: 2014<br />sales:  89599.03<br />segment: Home Office<br />segment: Home Office","years: 2015<br />sales:  75239.27<br />segment: Home Office<br />segment: Home Office","years: 2016<br />sales: 104538.23<br />segment: Home Office<br />segment: Home Office","years: 2017<br />sales: 159050.39<br />segment: Home Office<br />segment: Home Office"],"type":"scatter","mode":"lines","line":{"width":3.0236220472440949,"color":"rgba(97,156,255,1)","dash":"solid"},"hoveron":"points","name":"(Home Office,1)","legendgroup":"(Home Office,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.997,1,1.0029999999999999,1.9970000000000001,2,2.0030000000000001,2.9969999999999999,3,3.0030000000000001,3.9969999999999999,4,4.0030000000000001,4.0030000000000001,4,3.9969999999999999,3.0030000000000001,3,2.9969999999999999,2.0030000000000001,2,1.9970000000000001,1.0029999999999999,1,0.997,0.997],"y":[0,217625.16,217584.27425999998,204037.46574000001,203996.58000000002,204319.52403000003,311321.64596999995,311644.58999999997,311912.35086000001,400630.44914000004,400898.21000000002,0,0,731032.71999999997,730669.58200000005,610349.85800000001,609986.71999999997,609568.35736999998,470950.87263,470532.51000000001,470572.07838000002,483682.40161999996,483721.96999999997,0,0],"text":"years: 2014<br />sales: 266096.81<br />segment: Consumer<br />segment: Consumer<br />segment: Consumer","type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)","dash":"solid"},"fill":"toself","fillcolor":"rgba(228,26,28,1)","hoveron":"points","name":"Consumer","legendgroup":"Consumer","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.997,1,1.0029999999999999,1.9970000000000001,2,2.0030000000000001,2.9969999999999999,3,3.0030000000000001,3.9969999999999999,4,4.0030000000000001,4.0030000000000001,4,3.9969999999999999,3.0030000000000001,3,2.9969999999999999,2.0030000000000001,2,1.9970000000000001,1.0029999999999999,1,0.997,0.997],"y":[0,89599.029999999999,89555.950719999993,75282.349279999995,75239.270000000004,75327.166880000004,104450.33312,104538.23,104701.76648000001,158886.85352,159050.39000000001,0,0,400898.21000000002,400630.44914000004,311912.35086000001,311644.58999999997,311321.64596999995,204319.52403000003,203996.58000000002,204037.46574000001,217584.27425999998,217625.16,0,0],"text":"years: 2014<br />sales: 128026.13<br />segment: Corporate<br />segment: Corporate<br />segment: Corporate","type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(0,186,56,1)","dash":"solid"},"fill":"toself","fillcolor":"rgba(55,126,184,1)","hoveron":"points","name":"Corporate","legendgroup":"Corporate","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.997,1,1.0029999999999999,1.9970000000000001,2,2.0030000000000001,2.9969999999999999,3,3.0030000000000001,3.9969999999999999,4,4.0030000000000001,4.0030000000000001,4.0030000000000001,4,3.9969999999999999,3.0030000000000001,3,2.9969999999999999,2.0030000000000001,2,1.9970000000000001,1.0029999999999999,1,0.997,0.997],"y":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,159050.39000000001,158886.85352,104701.76648000001,104538.23,104450.33312,75327.166880000004,75239.270000000004,75282.349279999995,89555.950719999993,89599.029999999999,0,0],"text":"years: 2014<br />sales:  89599.03<br />segment: Home Office<br />segment: Home Office<br />segment: Home Office","type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(97,156,255,1)","dash":"solid"},"fill":"toself","fillcolor":"rgba(77,175,74,1)","hoveron":"points","name":"Home Office","legendgroup":"Home Office","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":37.176626298722788,"r":7.3059360730593621,"b":38.113114468087673,"l":77.376504773765063},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,4.5999999999999996],"tickmode":"array","ticktext":["2014","2015","2016","2017"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["2014","2015","2016","2017"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-36551.635999999999,767584.35599999991],"tickmode":"array","ticktext":[100000,200000,300000,400000,500000,600000],"tickvals":[100000,200000,300000,400000.00000000006,499999.99999999994,600000],"categoryorder":"array","categoryarray":[100000,200000,300000,400000,500000,600000],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176002,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716894984},"title":{"text":"segment","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","width":1000,"barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"3d79422dd81f8":{"x":{},"y":{},"colour":{},"type":"scatter"},"3d794424e01f8":{"x":{},"y":{},"colour":{},"fill":{}}},"cur_data":"3d79422dd81f8","visdat":{"3d79422dd81f8":["function (y) ","x"],"3d794424e01f8":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="ship_modes" class="section level1">
+<h1>Ship_Modes</h1>
+<div id="row-4" class="section level2" data-width="500,.tabset">
+<h2>row</h2>
+<div id="tbl" class="section level3">
+<h3>TBL</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-40369588e45a5f7f6e99" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-40369588e45a5f7f6e99">{"x":{"filter":"none","vertical":false,"extensions":["Buttons","RowGroup"],"fillContainer":true,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["2014","2015","2016","2017","2014","2015","2016","2017","2014","2015","2016","2017","2014","2015","2016","2017","Total"],["First Class","First Class","First Class","First Class","Same Day","Same Day","Same Day","Same Day","Second Class","Second Class","Second Class","Second Class","Standard Class","Standard Class","Standard Class","Standard Class","-"],[291,288,388,571,90,109,158,186,381,417,490,657,1231,1288,1561,1888,9994],[1153,1100,1459,2095,356,383,556,665,1867,1565,1820,2572,4720,4931,6745,7776,39763],[59652.48,69259.44,82268.94,140130.78,17470.13,27611.49,34505.76,48775.74,100978.04,89102.73,120002.44,148701.62,305621.32,284558.85,373209.58,393424.58,2295273.92],[9051.8362,10146.4402,9357.5767,20392.2898,2755.5071,4327.4275,5440.4492,3368.3751,9683.0175,10751.1519,16346.757,20589.2695,27955.4768,36393.5841,50337.9985,49092.1206,285989.2777]],"container":"<table class=\"hover row-border fill-container\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>YEARS<\/th>\n      <th>SHIP_MODE<\/th>\n      <th>ORDERS<\/th>\n      <th>QUANTITIES<\/th>\n      <th>SALES<\/th>\n      <th>PROFITS<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["csv","pdf","excel"],"rowGroup":{"dataSrc":2},"columnDefs":[{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatCurrency(data, \"$\", 2, 3, \",\", \".\", true, null);\n  }"},{"className":"dt-center","targets":[1,2,3,4,5,6]},{"visible":false,"targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"YEARS","targets":1},{"name":"SHIP_MODE","targets":2},{"name":"ORDERS","targets":3},{"name":"QUANTITIES","targets":4},{"name":"SALES","targets":5},{"name":"PROFITS","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render"],"jsHooks":[]}</script>
+</div>
+<div id="chart-3" class="section level3">
+<h3>Chart</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="576" data-figure-id=fig1 /></p>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+$(document).ready(function() {
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed table-sm');
+
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  FlexDashboard.init({
+    fillPage: true,
+    orientation: "rows",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460,
+    resize_reload: true
+  });
+  var navbar = $(".navbar").first();
+  var body = $("body").first();
+  var sidebar = $(".section.sidebar").first();
+  function addNavbarPadding() {
+    var navHeight = navbar.outerHeight();
+    body.css("padding-top", (navHeight + 8) + "px");
+    sidebar.css("top", navHeight + "px");
+    var resizeEvent = window.document.createEvent("UIEvents");
+    resizeEvent.initUIEvent("resize", true, false, window, 0);
+    window.dispatchEvent(resizeEvent);
+  }
+  if (!window.Shiny) setTimeout(addNavbarPadding, 100);
+  $(document).on("shiny:idle", function() {
+    setTimeout(addNavbarPadding, 50);
+  });
+});
+</script>
+
+</body>
+</html>
