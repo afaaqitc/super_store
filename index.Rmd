@@ -34,7 +34,7 @@ library(forecast)
 
 #-----------------Load------------------------------------------------
 
-dd<-read.csv("~/Desktop/store/data_store.csv")
+dd<-read.csv("~/Data/Learn/R_Projects/store/data_store.csv")
 
 dd<-dd %>%mutate(order_date=as.POSIXct(order_date),ship_date=as.POSIXct(ship_date))
 
