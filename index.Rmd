@@ -34,22 +34,24 @@ library(forecast)
 
 #-----------------Load------------------------------------------------
 
-dd<-read.csv("~/Data/Learn/R_Projects/store/data_store.csv")
+dd<-read.csv("~/Documents/GitHub/AFAAQITC-Report/super_store/superstore.csv")
+dd<-clean_names(dd)
+dd<-dd %>% mutate(order_date=mdy(order_date),ship_date=mdy(ship_date)) 
 
-dd<-dd %>%mutate(order_date=as.POSIXct(order_date),ship_date=as.POSIXct(ship_date))
-
+  
 dd<-
 dd%>% mutate(years=year(order_date))%>% 
-mutate(order_date=as.Date(order_date),ship_date=as.Date(ship_date)) %>% 
 mutate(wk=round_date(order_date,"week"),mn=round_date(order_date,"month")) %>%
 mutate(month_year=paste(format(order_date,"%b"),year(order_date),sep = "_"),
 week_month=paste(week(order_date),format(order_date,"%b"),sep = "_")) %>% 
-mutate(ship_period=ship_date-order_date,days=weekdays(order_date))  
+mutate(ship_period=ship_date-order_date,days=weekdays(order_date),profits=as.numeric(profit),qty=as.numeric(quantity),discount=as.numeric(discount))  
+
+
 #----------------------------------------------------------------------
 
 daily_sales<-
-dd %>% group_by(order_date) %>% summarize(orders=n(),quantites=sum(qty),sales=sum(sales),profits=sum(profits)) %>% 
-arrange(order_date)
+dd %>% group_by(order_date) %>% summarize(orders=n(),quantites=sum(quantity),
+sales=sum(sales),profits=sum(profit)) %>% arrange(order_date)
 
 
 #-----------------------------------------------------------------------------------------
@@ -58,7 +60,7 @@ dd %>% group_by(ship_mode,years) %>% summarize(orders=n(),quantities=sum(qty),
 sales=round(sum(sales),2),profits=sum(profits),.groups = "drop") %>% mutate(years=as.factor(years))
 
 ship_modes_chart<-
-dd %>% group_by(ship_mode) %>% summarize(sales=comma(sum(sales))) %>% ggplot(aes(x="",y=sales,fill =ship_mode))+geom_bar(stat = "identity")+coord_polar(theta = "y")+theme_void()+geom_text(aes(label = sales),position = position_stack(vjust = 0.5),color="white")+scale_fill_brewer(palette = "Set1")
+dd %>% group_by(ship_mode) %>% summarize(sales=comma(sum(sales))) %>% ggplot(aes(x="",y=sales,fill =ship_mode))+geom_bar(stat = "identity")+coord_polar(theta = "y")+theme_void()+geom_text(aes(label =paste( round(sales/1000,digits =0),"K",sep = "")),position = position_stack(vjust = 0.5),color="white")+scale_fill_brewer(palette = "Set1")
 
 ship_modes_dt<-
 ship_modes %>% select(years,ship_mode,orders,quantities,sales,profits) %>%
@@ -74,14 +76,18 @@ formatCurrency(columns = c(3:6),digits = 2)
 
 segment_totals<-                                                  
 dd %>% group_by(segment,years) %>% summarize(orders=n(),quantities=sum(qty),
-sales=round(sum(sales),2),profits=sum(profits)) 
+sales=sum(sales),profits=sum(profits)) 
+
 
 segment_totals_chart<-
 segment_totals %>%mutate(years=factor(years)) %>%
-ggplot(aes(x=years,y=sales,color=segment,group=segment))+geom_line(size=0.8)+geom_area(aes(fill=segment))+
-scale_y_continuous(labels =  comma,breaks = c(100000,200000,300000,400000,500000,600000))+theme_bw()+labs(x="",y="")+
+ggplot(aes(x=years,y=sales,fill=segment))+
+geom_bar(stat = "identity")+
+geom_text(aes(label =comma(round(sales),digits = 0)),size=4,color="white",position = position_stack(vjust = 0.7),fontface = "bold")+
+scale_y_continuous(labels =  comma)+
+theme_bw()+labs(x="",y="")+
 theme(axis.text.x = element_text(face = "bold",size = 10,colour = "black"),
-      axis.text.y = element_text(face = "bold",size = 10,colour = "black"))+scale_fill_brewer(palette = "Set1")
+      axis.text.y = element_text(face = "bold",size = 10,colour = "black"))+scale_fill_brewer(palette = "Dark2")+facet_wrap(~segment)
 
 segment_totals_dt<-
 segment_totals %>% 
@@ -98,10 +104,10 @@ formatCurrency(columns = c(3:6),digits = 2)
 #-----------------------------------------------------------------------------------------
 
 state_sales<-
-dd %>% group_by(states) %>% 
+dd %>% group_by(state) %>% 
 summarize(orders=n(),quantities=sum(qty),sales=sum(sales),profits=sum(profits)) %>% 
 arrange(desc(sales)) %>% mutate(class=ifelse(sales>100000,"A",ifelse( sales>50000,"B","D")))%>% 
-select(class,states,orders,quantities,sales,profits) %>% rename_with(.cols =everything() ,.fn = toupper)
+select(class,state,orders,quantities,sales,profits) %>% rename_with(.cols =everything() ,.fn = toupper)
 
 state_sales_dt<-
 state_sales %>% datatable(class="hover row-border",extensions = list(Buttons=TRUE,RowGroup=TRUE),
@@ -111,8 +117,8 @@ formatCurrency(columns =c(5,6),digits = 2)
 
 state_sales_top_chart<-
 state_sales %>% filter(CLASS=="A")%>% 
-ggplot(aes(x=reorder(STATES,SALES),y=SALES,fill=STATES))+geom_bar(stat = "identity")+labs(x="",y="")+theme_bw()+
-geom_text(aes(label =comma(round(SALES))),size=3,color="white",position = position_stack(vjust = 0.6))+
+ggplot(aes(x=reorder(STATE,SALES),y=SALES,fill=STATE))+geom_bar(stat = "identity")+labs(x="",y="")+theme_bw()+
+geom_text(aes(label =comma(round(SALES),digits = 0)),size=4,color="white",position = position_stack(vjust = 0.6),fontface = "bold")+
   scale_fill_brewer(palette = "Set1")+scale_y_continuous(labels = comma)+
 theme(axis.text.x = element_text(face = "bold",colour = "black",size = 10),axis.text.y = element_text(face = "bold",colour = "black",size = 10))
 
@@ -127,18 +133,18 @@ mutate(class=case_when(sales>10000 ~ "A",sales>1000 ~ "B",sales>500 ~ "C",TRUE ~
 
 #---------------------------------------------------------------------------------------------------
 category_orders<-
-dd %>% group_by(categories,sub_categories) %>% 
+dd %>% group_by(category,sub_category) %>% 
 summarize(orders=n(),quantities=sum(qty),sales=sum(sales),
 profits=sum(profits),pct=sum(profits)/sum(sales)) %>% 
-arrange(categories,sub_categories) %>%
+arrange(category,sub_category) %>%
 mutate(class=case_when(pct>0.25 ~ "A",pct >0.1 ~ "B",TRUE~"C")) 
 
 
 category_orders_chart<-
-dd %>% mutate(years=factor(years))%>% group_by(categories,years) %>% 
+dd %>% mutate(years=factor(years))%>% group_by(category,years) %>% 
 summarize(sales=sum(sales),.groups = "drop") %>%
 arrange( desc(sales)) %>% 
-ggplot(aes(x=categories,y=sales,fill=years))+geom_bar(stat = "identity",position = "dodge")+
+ggplot(aes(x=category,y=sales,fill=years))+geom_bar(stat = "identity",position = "dodge")+
 labs(x="",y="")+theme_bw()+scale_fill_brewer(palette = "Dark2")+
 theme(axis.text.x = element_text(face = "bold",size=9,color="black"),
       axis.text.y = element_text(face = "bold",size=9,color="black"))+
@@ -147,29 +153,29 @@ scale_y_continuous(labels = comma)
  
 
 category_orders_dt<-
-dd %>% group_by(categories,years) %>% 
+dd %>% group_by(category,years) %>% 
 summarize(sales=round(sum(sales)),.groups = "drop") %>%
 arrange( desc(sales)) %>%  
-pivot_wider(id_cols =categories ,names_from = years,values_from = sales,values_fill = FALSE) %>% 
-select(categories,"2014","2015","2016","2017")%>%adorn_totals("col") %>% 
+pivot_wider(id_cols =category ,names_from = years,values_from = sales,values_fill = FALSE) %>% 
+select(category,"2014","2015","2016","2017")%>%adorn_totals("col") %>% 
 rename(Y14="2014",Y15="2015",Y16="2016",Y16="2016",Y17="2017") %>%  
 datatable(class="hover row-border",
 extensions = list(Buttons=TRUE),
 options = list(dom="Bfrtip",buttons=c("csv","excel","pdf"),columnDefs=list(list(className="dt-center",targets=c(1))))) %>% formatCurrency(columns = c(2:6),digits = 2)
 
 category_orders_main_chart<-
-dd %>% group_by(categories) %>% summarize(sales=sum(sales),.groups = "drop") %>% 
-ggplot(aes(x="",y=sales,fill=categories))+geom_bar(stat = "identity")+coord_polar(theta = "y")+
+dd %>% group_by(category) %>% summarize(sales=sum(sales),.groups = "drop") %>% 
+ggplot(aes(x="",y=sales,fill=category))+geom_bar(stat = "identity")+coord_polar(theta = "y")+
 theme_void()+geom_text(aes(label = comma(sales)),size=5,color="white",fontface = "bold",position = position_stack(vjust = 0.5))
 
 items_classes_top<- 
-category_orders %>% select(sub_categories,class) %>% 
-left_join(dd,by="sub_categories") %>% 
-group_by(class,categories.x,sub_categories,product_name) %>% summarize(quantities=sum(qty),
+category_orders %>% select(sub_category,class) %>% 
+left_join(dd,by="sub_category") %>% 
+  group_by(class,category.x,sub_category,product_name) %>% summarize(quantities=sum(qty),
 sales=sum(sales),.groups = "drop") %>%  filter(class %in% c("A","B")) 
 
 items_classes_top_dt<-
-items_classes_top %>%mutate(product_name=toupper(product_name)) %>%filter(class=="A") %>% select(categories.x,sub_categories,product_name,quantities,sales) %>% rename_with(.cols = c(1:5),.fn = toupper)%>%   
+items_classes_top %>%mutate(product_name=toupper(product_name)) %>%filter(class=="A") %>% select(category.x,sub_category,product_name,quantities,sales) %>% rename_with(.cols = c(1:5),.fn = toupper)%>%   
 datatable(class="hover row-border",extensions = list(Buttons=TRUE,RowGroup=TRUE),
 options = list(pageLength=15,dom="Bfrtip",buttons=c("csv","excel","pdf"),rowGroup=list(dataSrc=c(1,2)),
 columnDefs=list(list(className="dt-center",targets=c(1,2,4,5)),list(visible=FALSE,targets=c(1,2))))) %>% 
@@ -189,18 +195,16 @@ date_map_sales_dt<-
 date_map_sales %>% datatable(class="hover row-border",
 extensions = list(Buttons=TRUE,RowGroup=TRUE),
 options = list(dom="Bfrtip",buttons=c("csv","excel","pdf"),rowGroup=list(dataSrc=c(1)),
-columnDefs=list(list(className="dt-center",targets=c(1:10)),list(visible=FALSE,targets=1))))
+columnDefs=list(list(className="dt-center",targets=c(1:10)),list(visible=FALSE,targets=1)))) %>% formatCurrency(columns = c(3:10),digits = 2)
+
 
 ym_sales_chart<-
-dd %>% mutate(years=factor(years),
-months=factor(format(order_date,"%B"),levels = c("January","February","March","April","May","June","July",
-"August","September","October","November","December")))%>% 
-group_by(months,years) %>% summarize(sales=sum(sales),.groups = "drop") %>% arrange(years) %>% 
-ggplot(aes(x=months,y=sales,color=years,group=years))+geom_line(size=0.8)+
-theme_classic()+
-theme(axis.text.x = element_text(face = "bold",colour = "black",size = 10),
-      axis.text.y = element_text(face = "bold",colour = "black",size = 10)) +labs(x="",y="")+
-scale_y_continuous(labels = comma)
+dd %>% mutate(years=factor(years),quarters=quarters(order_date))%>%  group_by(years,quarters) %>% summarize(sales=sum(sales)) %>%
+    ggplot(aes(x=years,y=sales,fill=quarters))+geom_bar(stat = "identity")+geom_text(aes(label=comma(round(sales,digits =0),digits = 0)),fontface = "bold",position = position_stack(vjust = 0.5),size=4,color="white")+
+    theme_classic()+
+    theme(axis.text.x = element_text(face = "bold",colour = "black",size = 10),
+          axis.text.y = element_text(face = "bold",colour = "black",size = 10)) +labs(x="",y="")+
+    scale_y_continuous(labels = comma)+scale_fill_brewer(palette = "Set1")
 
 
 
@@ -234,14 +238,15 @@ select(Point.Forecast,Hi.95)
 
 
 detect_model_chart<-
-detect_model %>% 
+detect_model %>% select(date,sales,forecast) %>% 
 pivot_longer(!date,names_to ="cat" ,values_to ="values" ) %>% 
-mutate(date=as.POSIXct(date)) %>% 
-ggplot(aes(x=date,y=values))+geom_line(size=1.2)+
+mutate(date=as.POSIXct(date)) %>%  
+ggplot(aes(x=date,y=values,color=cat,group=cat))+geom_line(size=1.2)+
+geom_area(aes(fill=cat))+
 labs(x="",y="")+scale_x_datetime(date_breaks ="month" ,date_labels = "%b-%y")+
-geom_area(aes(fill=cat))+scale_fill_brewer(palette = "Set6")+theme_classic()+
+scale_fill_brewer(palette = "Set1")+theme_classic()+
 theme(axis.text.x = element_text(face = "bold",colour = "black",size = 9),
-      axis.text.y = element_text(face = "bold",colour = "black",size = 9))
+axis.text.y = element_text(face = "bold",colour = "black",size = 9))
 
 detect_model_dt<-
 detect_model %>%rename_with(.cols = everything(),.fn = toupper) %>% 
@@ -253,7 +258,7 @@ formatCurrency(columns = c(2:4),digits = 2)
 
 # Weekly Real 
 
-wk_rts<-ts(weekly_sales$sales,start = c(2014,1),frequency = 52)
+wk_rts<-ts(weekly_sales$sales,start = c(2014,1),end = c(2017,12),frequency = 52)
 
 wk_rar<-auto.arima(wk_rts)
 wk_rets<-ets(wk_rts)
@@ -274,12 +279,13 @@ weekly_real_forecast %>%select(date,Low,Hi,Point.Forecast) %>%
 pivot_longer(!date,names_to = "cat",values_to = "values") %>%
 mutate(date=as.POSIXct(date))%>% 
 ggplot(aes(x=date,y=values,color=cat,group=cat))+geom_line(size=0.8)+geom_area(aes(fill=cat))+
-theme(axis.text.x = element_text(face = "bold",colour = "black",angle = 90,size = 9),
-axis.text.y = element_text(face = "bold",colour = "black",angle = 90,size = 9))+
+theme_classic()+theme(axis.text.x = 
+element_text(face = "bold",colour = "black",size = 9),
+axis.text.y = element_text(face = "bold",colour = "black",size = 9))+
 scale_fill_brewer(palette = "Set1")+
-scale_x_datetime(date_breaks ="2 week" ,date_labels = "%b%Y")+theme_classic()+
-labs(x="",y="")+
-scale_y_continuous(breaks = c(5000,10000,15000,20000,25000,30000,35000,40000))
+scale_x_datetime(date_breaks ="2 week" ,date_labels = "%b%Y")+
+labs(x="",y="")+scale_x_datetime(date_breaks = "4 week",date_labels = "%V-%b")+
+scale_y_continuous(labels = comma)
 
   
 weekly_real_forecast_dt<-
@@ -439,7 +445,7 @@ date_map_sales_dt %>%formatCurrency(columns = c(2:9),digits = 2)
 
 ### Chart
 ```{r}
-ggplotly( ym_sales_chart,width=1000)
+ggplotly( ym_sales_chart,width=1200)
 
 ```
 
@@ -454,7 +460,7 @@ segment_totals_dt
 
 ### Chart 
 ```{r}
-ggplotly( segment_totals_chart,width=1000)
+ggplotly( segment_totals_chart,width=1300)
 ```
 
 # Ship_Modes
@@ -478,7 +484,7 @@ state_sales_dt
   
 ### Top States
 ```{r}
-ggplotly( state_sales_top_chart,width=700)
+ggplotly( state_sales_top_chart,width=600)
 ```
 
 
