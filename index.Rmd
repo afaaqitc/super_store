@@ -32,7 +32,7 @@ library(readxl)
 library(tseries)
 library(forecast)
 
-#-----------------Load------------------------------------------------
+#-----------------Load-------------------------------------------- ----
 
 dd<-read.csv("~/Documents/GitHub/AFAAQITC-Report/super_store/superstore.csv")
 dd<-clean_names(dd)
@@ -439,7 +439,7 @@ items_classes_top_dt
 ## row{.tabset}
 ### Year_month
 ```{r}
-date_map_sales_dt %>%formatCurrency(columns = c(2:9),digits = 2)
+date_map_sales_dt %>%formatCurrency(columns = c(3:9),digits = 2)
 ```
 
 
